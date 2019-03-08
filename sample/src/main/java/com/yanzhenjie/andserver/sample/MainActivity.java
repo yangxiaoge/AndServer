@@ -115,6 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRootUrl = "http://" + ip + ":8080/";
             addressList.add(mRootUrl);
             addressList.add("http://" + ip + ":8080/login.html");
+            addressList.add("http://" + ip + ":8080/user/getName");
+            addressList.add("http://" + ip + ":8080/pic/material.png");
+            addressList.add("http://" + ip + ":8080/pic/file/database.db");
+            addressList.add("自己扩展...");
             mTvMessage.setText(TextUtils.join("\n", addressList));
         } else {
             mRootUrl = null;

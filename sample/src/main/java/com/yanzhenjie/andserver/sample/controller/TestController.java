@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Created by YanZhenjie on 2018/6/9.
  */
-@RestController
+//@RestController //注销掉，不用了，具体看UserController类
 @RequestMapping(path = "/user")
 class TestController {
 
@@ -55,13 +55,34 @@ class TestController {
 
     @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     String login(HttpRequest request, HttpResponse response, @RequestParam(name = "account") String account,
-        @RequestParam(name = "password") String password) {
+                 @RequestParam(name = "password") String password) {
         Session session = request.getValidSession();
         session.setAttribute(LoginInterceptor.LOGIN_ATTRIBUTE, true);
 
         Cookie cookie = new Cookie("account", account + "=" + password);
         response.addCookie(cookie);
-        return "Login successful.";
+        String test = "{\n" +
+                "    \"code\": \"0\",\n" +
+                "    \"data\": {\n" +
+                "        \"areaId\": 1,\n" +
+                "        \"areaName\": \"浦口区\",\n" +
+                "        \"gender\": \"2\",\n" +
+                "        \"headPic\": \"http://220.194.101.68:18080/resources/2018-07-09/1a1c8c7f-51f4-41c0-b397-1cef4900b4c9.jpg\",\n" +
+                "        \"isFirstLogin\": \"N\",\n" +
+                "        \"isLeader\": 0,\n" +
+                "        \"jobName\": \"程序员小羊\",\n" +
+                "        \"mobileNo\": \"135******279\",\n" +
+                "        \"orgId\": 22,\n" +
+                "        \"orgName\": \"星火路社区\",\n" +
+                "        \"staffId\": 435,\n" +
+                "        \"staffName\": \"小羊\",\n" +
+                "        \"token\": \"18080715015920398391ajIyYAqhE3dxIlUQ46WQOdzmthR5ln\",\n" +
+                "        \"userCode\": \"xiaoyang\"\n" +
+                "    },\n" +
+                "    \"message\": \"成功\"\n" +
+                "}";
+//        return "Login successful.";
+        return test;
     }
 
     @Addition(stringType = "login", booleanType = true)
