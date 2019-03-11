@@ -6,7 +6,7 @@ ext {
                maven         : 'com.github.dcendents.android-maven',
                bintray       : 'com.jfrog.bintray']
 
-    android = [applicationId          : 'com.yanzhenjie.andserver.testsample',
+    android = [applicationId          : 'com.andserver.testsample',
                compileSdkVersion      : 27,
                buildToolsVersion      : '27.0.3',
 
