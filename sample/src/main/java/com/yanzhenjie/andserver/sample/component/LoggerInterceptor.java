@@ -42,6 +42,7 @@ public class LoggerInterceptor implements HandlerInterceptor {
         Logger.i("Path: " + path);
         Logger.i("Method: " + method.value());
         Logger.i("Param: " + JsonUtils.toJsonString(valueMap));
+        //Logger.i("Param: request = " + JsonUtils.toJsonString(request));
         return false;
     }
 }

@@ -20,6 +20,7 @@ import android.os.Parcelable;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+
 /**
  * Created by YanZhenjie on 2018/6/9.
  */
@@ -29,19 +30,32 @@ public class UserInfo implements Parcelable {
     private String mUserId;
     @JSONField(name = "userName")
     private String mUserName;
+    @JSONField(name = "avatar")
+    //bitmap字节数组,头像
+    private byte[] avatar;
 
-    public UserInfo() {
+    public String getUserId() {
+        return mUserId;
     }
 
-    protected UserInfo(Parcel in) {
-        mUserId = in.readString();
-        mUserName = in.readString();
+    public void setUserId(String mUserId) {
+        this.mUserId = mUserId;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mUserId);
-        dest.writeString(mUserName);
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String mUserName) {
+        this.mUserName = mUserName;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
     @Override
@@ -49,10 +63,26 @@ public class UserInfo implements Parcelable {
         return 0;
     }
 
-    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mUserId);
+        dest.writeString(this.mUserName);
+        dest.writeByteArray(this.avatar);
+    }
+
+    public UserInfo() {
+    }
+
+    protected UserInfo(Parcel in) {
+        this.mUserId = in.readString();
+        this.mUserName = in.readString();
+        this.avatar = in.createByteArray();
+    }
+
+    public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
         @Override
-        public UserInfo createFromParcel(Parcel in) {
-            return new UserInfo(in);
+        public UserInfo createFromParcel(Parcel source) {
+            return new UserInfo(source);
         }
 
         @Override
@@ -60,20 +90,4 @@ public class UserInfo implements Parcelable {
             return new UserInfo[size];
         }
     };
-
-    public String getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(String userId) {
-        mUserId = userId;
-    }
-
-    public String getUserName() {
-        return mUserName;
-    }
-
-    public void setUserName(String userName) {
-        this.mUserName = userName;
-    }
 }

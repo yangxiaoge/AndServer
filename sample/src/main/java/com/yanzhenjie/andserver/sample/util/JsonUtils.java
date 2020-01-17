@@ -37,7 +37,8 @@ public class JsonUtils {
         returnData.setSuccess(true);
         returnData.setErrorCode(200);
         returnData.setData(data);
-        return JSON.toJSONString(returnData);
+        //return JSON.toJSONString(returnData);
+        return JSON.toJSON(returnData).toString();
     }
 
     /**

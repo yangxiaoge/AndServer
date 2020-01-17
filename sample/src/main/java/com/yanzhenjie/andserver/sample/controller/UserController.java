@@ -1,7 +1,12 @@
 package com.yanzhenjie.andserver.sample.controller;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.PathUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.yanzhenjie.andserver.annotation.GetMapping;
 import com.yanzhenjie.andserver.annotation.PostMapping;
 import com.yanzhenjie.andserver.annotation.RequestBody;
@@ -11,6 +16,8 @@ import com.yanzhenjie.andserver.annotation.RestController;
 import com.yanzhenjie.andserver.sample.model.UserInfo;
 import com.yanzhenjie.andserver.sample.response.UserData;
 import com.yanzhenjie.andserver.util.MediaType;
+
+import java.io.File;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -48,6 +55,13 @@ class UserController {
     //post json数据,consumes限定只接受json
     @PostMapping(path = "/jsonBody", consumes = {"application/json"})
     UserInfo jsonBody(@RequestBody UserInfo userInfo) {
+        if (userInfo.getAvatar() != null && userInfo.getAvatar().length > 0) {
+            String imageSavePath = PathUtils.getExternalDocumentsPath() + File.separator + TimeUtils.getNowString() + "aaa.jpg";
+            Bitmap bmp = BitmapFactory.decodeByteArray(userInfo.getAvatar(), 0, userInfo.getAvatar().length);
+            boolean save = ImageUtils.save(bmp, imageSavePath, Bitmap.CompressFormat.WEBP, true);
+            Log.i("啊啊", "jsonBody: 保持图片 save = " + save + " path = " + imageSavePath);
+
+        }
         return userInfo;
     }
 
