@@ -30,7 +30,7 @@ public class UserInfo implements Parcelable {
     private String mUserId;
     @JSONField(name = "userName")
     private String mUserName;
-    @JSONField(name = "avatar")
+    @JSONField(name = "image")
     //bitmap字节数组,头像
     private byte[] avatar;
 
