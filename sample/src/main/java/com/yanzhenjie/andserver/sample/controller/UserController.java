@@ -18,6 +18,8 @@ import com.yanzhenjie.andserver.sample.response.UserData;
 import com.yanzhenjie.andserver.util.MediaType;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -53,10 +55,13 @@ class UserController {
     }
 
     //post json数据,consumes限定只接受json
+    //调用方法见 "post上传byte数组.md" 文档
     @PostMapping(path = "/jsonBody", consumes = {"application/json"})
     UserInfo jsonBody(@RequestBody UserInfo userInfo) {
         if (userInfo.getAvatar() != null && userInfo.getAvatar().length > 0) {
-            String imageSavePath = PathUtils.getExternalDocumentsPath() + File.separator + TimeUtils.getNowString() + "aaa.jpg";
+            String imageSavePath = PathUtils.getExternalDocumentsPath() + File.separator + TimeUtils.getNowString(
+                    new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss_SSS", Locale.getDefault())
+            ) + "_aaa.jpg";
             Bitmap bmp = BitmapFactory.decodeByteArray(userInfo.getAvatar(), 0, userInfo.getAvatar().length);
             boolean save = ImageUtils.save(bmp, imageSavePath, Bitmap.CompressFormat.WEBP, true);
             Log.i("啊啊", "jsonBody: 保持图片 save = " + save + " path = " + imageSavePath);
